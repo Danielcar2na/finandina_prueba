@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:finandina_prueba/src/presentation/widgets/_custom_navigation.dart';
 import 'package:finandina_prueba/src/presentation/home/view/intro_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State createState() => _LoginPageState();
+  State createState() => _HomePageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
