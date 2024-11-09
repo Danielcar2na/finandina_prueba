@@ -44,17 +44,18 @@ class _EndPageState extends State<EndPage> {
               ),
             
               // Espacio entre el logo y la imagen
-              SizedBox(height: screenHeight * 0.06),
+              SizedBox(height: screenHeight * 0.10),
             
               // Imagen ajustada
               CustomImage(
                 imagePath: 'assets/img/endPagex3.png',
-                width: screenWidth * 0.85,  // Ancho ajustado al 85% del ancho de la pantalla
-                height: screenHeight * 0.4, // Alto ajustado al 40% de la altura de la pantalla
+                width: screenWidth * 1.0, 
+                height: screenHeight * 0.43,
+                fit: BoxFit.cover,
               ),
             
               // Espacio entre la imagen y la descripción
-              SizedBox(height: screenHeight * 0.12),
+              SizedBox(height: screenHeight * 0.075),
             
               // Descripción con tamaños de fuente adaptativos
               DescriptionSection(
@@ -66,13 +67,12 @@ class _EndPageState extends State<EndPage> {
               ),
             
               // Espacio entre la descripción y el botón flotante
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),  // 10% de la altura de la pantalla
+              SizedBox(height: screenHeight * 0.060),  // Espacio entre descripción y el botón
 
-            
               // Botón flotante rectangular
               SizedBox(
-                width: screenWidth * 0.85,  // El mismo ancho que el CustomNavigation
-                height: screenHeight * 0.06, // Ajuste de altura
+                width: screenWidth * 0.85,  // El mismo ancho que el CustomImage
+                height: screenHeight * 0.06, // Ajuste de altura del botón
                 child: ElevatedButton(
                   onPressed: () {
                     // Acción del botón

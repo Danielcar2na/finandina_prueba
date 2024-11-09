@@ -30,17 +30,19 @@ class _SendMoneyState extends State<SendMoney> {
           ),
 
           // Espacio entre el logo y la imagen
-          SizedBox(height: screenHeight * 0.06),
+          SizedBox(height: screenHeight * 0.02),
 
           // Imagen ajustada
           CustomImage(
             imagePath: 'assets/img/sendMoneyx3.png',
-            width: screenWidth * 0.85, // Ancho ajustado al 85% del ancho de la pantalla
-            height: screenHeight * 0.4, // Alto ajustado al 40% de la altura de la pantalla
-          ),
+            width: screenWidth * 1, // Ancho ajustado al 85% del ancho de la pantalla
+            height: screenHeight * 0.50, 
+            fit: BoxFit.cover, // Altura ajustada al 40% de la altura de la pantalla
+
+            ),
 
           // Espacio entre la imagen y la descripción
-          SizedBox(height: screenHeight * 0.16),
+          SizedBox(height: screenHeight * 0.10),
 
           // Descripción con tamaños de fuente adaptativos
           DescriptionSection(
