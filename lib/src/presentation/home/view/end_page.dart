@@ -9,15 +9,41 @@ class EndPage extends StatefulWidget {
   State<EndPage> createState() => _EndPageState();
 }
 
-class _EndPageState extends State<EndPage> {
+class _EndPageState extends State<EndPage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(1.0, 0.0), // Comienza desde el lado derecho
+      end: Offset.zero, // Termina en su posición normal
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+
+    // Inicia la animación
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Obtener el tamaño de la pantalla
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      // Contenedor principal con el gradiente aplicado
       body: Container(
         width: screenWidth,
         height: screenHeight,
@@ -29,67 +55,58 @@ class _EndPageState extends State<EndPage> {
               Color.fromRGBO(91, 29, 212, 1),
               Color.fromRGBO(205, 52, 237, 1),
               Color.fromRGBO(91, 29, 212, 1),
-            ], // Puedes ajustar los colores del gradiente aquí
+            ],
           ),
         ),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Centrar contenido verticalmente
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: screenHeight * 0.05),
-              // Logo ajustado
               Image.asset(
                 'assets/img/logo.png',
-                width: screenWidth * 0.1,  // Ancho proporcional al tamaño de la pantalla
-                height: screenWidth * 0.1, // Alto proporcional al tamaño de la pantalla
+                width: screenWidth * 0.1,
+                height: screenWidth * 0.1,
               ),
-            
-              // Espacio entre el logo y la imagen
               SizedBox(height: screenHeight * 0.08),
-            
-              // Imagen ajustada
               CustomImage(
                 imagePath: 'assets/img/endPagex3.png',
-                width: screenWidth * 1.0, 
+                width: screenWidth * 1.0,
                 height: screenHeight * 0.43,
                 fit: BoxFit.cover,
               ),
-            
-              // Espacio entre la imagen y la descripción
               SizedBox(height: screenHeight * 0.11),
-            
-              // Descripción con tamaños de fuente adaptativos
               DescriptionSection(
                 title: '¡Escanea y listo!',
-                fontSizeTitle: screenWidth * 0.08, // Tamaño del título proporcional al ancho de la pantalla
+                fontSizeTitle: screenWidth * 0.08,
                 isBoldTitle: true,
                 subtitle: 'Paga en datáfonos con QR y libérate de las \n tarjetas físicas.',
-                fontSizeSubtitle: screenWidth * 0.04, // Tamaño del subtítulo proporcional al ancho de la pantalla
+                fontSizeSubtitle: screenWidth * 0.04,
               ),
-            
-              // Espacio entre la descripción y el botón flotante
-              SizedBox(height: screenHeight * 0.060),  // Espacio entre descripción y el botón
-                
-              // Botón flotante rectangular
-              SizedBox(
-                width: screenWidth * 0.85,  // El mismo ancho que el CustomImage
-                height: screenHeight * 0.06, // Ajuste de altura del botón
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Acción del botón
-                    print('Libera tu Banca');
-                  },
-                  style: ElevatedButton.styleFrom(// Color de fondo
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // Bordes redondeados
+              SizedBox(height: screenHeight * 0.06),
+
+              // Botón con animación de entrada desde la derecha
+              SlideTransition(
+                position: _offsetAnimation,
+                child: SizedBox(
+                  width: screenWidth * 0.85,
+                  height: screenHeight * 0.06,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      print('Libera tu Banca');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: EdgeInsets.zero,
                     ),
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Text(
-                    'Libera tu Banca',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: screenWidth * 0.05,  // Tamaño del texto proporcional al ancho
+                    child: Text(
+                      'Libera tu Banca',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: screenWidth * 0.05,
+                      ),
                     ),
                   ),
                 ),
@@ -98,8 +115,7 @@ class _EndPageState extends State<EndPage> {
           ),
         ),
       ),
-      // Configurar que el BottomNavigation no sea visible en esta página
-      bottomNavigationBar: SizedBox.shrink(), // Usamos SizedBox.shrink() para no ocupar espacio en el BottomNavigation
+      bottomNavigationBar: SizedBox.shrink(),
     );
   }
 }

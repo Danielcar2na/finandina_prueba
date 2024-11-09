@@ -76,42 +76,40 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop, // Controlamos el gesto de retroceso
-      child: SafeArea(
-        child: Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: _gradients[_currentPage], // Gradiente dinámico
-              ),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: _gradients[_currentPage], // Gradiente dinámico
             ),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // PageView para navegar entre las vistas
-                  Expanded(
-                    child: PageView(
-                      controller: _pageController,
-                      children: _pages,
-                      onPageChanged: (page) {
-                        setState(() {
-                          _currentPage = page;
-                        });
-                      },
-                    ),
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // PageView para navegar entre las vistas
+                Expanded(
+                  child:PageView(
+    controller: _pageController,
+    physics: const NeverScrollableScrollPhysics(), // Desactiva el desplazamiento manual
+    children: _pages,
+    onPageChanged: (page) {
+      setState(() {
+        _currentPage = page;
+      });
+    },
+  ),
+                ),
+                // BottomNavigation solo si no estamos en EndPage (última página)
+                if (_currentPage != 6)
+                  BottomNavigation(
+                    pageController: _pageController,
+                    pageCount: _pages.length,
                   ),
-                  // BottomNavigation solo si no estamos en EndPage (última página)
-                  if (_currentPage != 6)
-                    BottomNavigation(
-                      pageController: _pageController,
-                      pageCount: _pages.length,
-                    ),
-                ],
-              ),
+              ],
             ),
           ),
         ),

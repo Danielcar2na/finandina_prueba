@@ -8,7 +8,8 @@ class AnimatedPageStatic extends PageRouteBuilder {
           pageBuilder: (context, animation, secondaryAnimation,)
         {return child;},
         transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secundaryAnimation, Widget child){
-          return child;
+          return FadeTransition(opacity: animation,
+          child: child,);
         });
 
   @override
