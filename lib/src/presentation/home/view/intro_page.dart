@@ -32,57 +32,70 @@ class _IntroPageState extends State<IntroPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 50),
-        Hero(
-          tag: 'logo',
-          child: AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) {
-              return Image.asset(
-                'assets/img/logo.png',
-                width: _animation.value,
-                height: _animation.value,
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 40),
-            Text(
-              'Con ',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+    // Obtener el tamaño de la pantalla
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Espacio superior adaptable
+          SizedBox(height: screenHeight * 0.05),
+          
+          Hero(
+            tag: 'logo',
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Image.asset(
+                  'assets/img/logo.png',
+                  width: _animation.value,
+                  height: _animation.value,
+                );
+              },
             ),
-            Text(
-              "Banco Finandina",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+          ),
+
+          SizedBox(height: screenHeight * 0.01), // Ajuste de espacio
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Con ',
+                style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.06),
               ),
-            ),
-          ],
-        ),
-        const Text(
-          "tienes el poder de ser libre",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
+              Text(
+                "Banco Finandina",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: screenWidth * 0.05,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
-        ),
-        const SizedBox(height: 350),
-        const DescriptionSection(
-          title: 'Descubre lo que puedes hacer con tu',
-          fontSizeTitle: 16,
-          subtitle: 'App Banco Finandina',
-          fontSizeSubtitle: 28,
-          isBoldSubtitle: true,
-        ),
-      ],
+
+          Text(
+            "tienes el poder de ser libre",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: screenWidth * 0.06, // Tamaño adaptado al ancho
+            ),
+          ),
+          
+          // Espacio adaptable
+          SizedBox(height: screenHeight * 0.45),
+
+          DescriptionSection(
+            title: 'Descubre lo que puedes hacer con tu',
+            fontSizeTitle: screenWidth * 0.04, // Tamaño del título ajustado
+            subtitle: 'App Banco Finandina',
+            fontSizeSubtitle: screenWidth * 0.08, // Tamaño de subtítulo ajustado
+            isBoldSubtitle: true,
+          ),
+        ],
+      ),
     );
   }
 }

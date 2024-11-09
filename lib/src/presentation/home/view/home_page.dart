@@ -6,7 +6,6 @@ import 'package:finandina_prueba/src/presentation/home/view/scan_and_go.dart';
 import 'package:finandina_prueba/src/presentation/home/view/send_money.dart';
 import 'package:flutter/material.dart';
 import 'package:finandina_prueba/src/presentation/widgets/_custom_navigation.dart';
-import 'package:finandina_prueba/src/presentation/widgets/_description_section.dart';
 import 'package:finandina_prueba/src/presentation/home/view/intro_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,57 +15,20 @@ class LoginPage extends StatefulWidget {
   State createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State {
+class _LoginPageState extends State<LoginPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  // Lista de gradientes para cada página
   final List<List<Color>> _gradients = [
-    // IntroPage
-    [
-      
-      const Color.fromARGB(255, 233, 30, 47),
-      const Color.fromARGB(255, 132, 18, 143),
-    ],
-    // ProductHands
-    [
-      const Color.fromRGBO(227, 25, 82, 1),
-      const Color.fromRGBO(255, 134, 190, 1),
-      const Color.fromRGBO(227, 25, 82, 1),
-      ],
-    // PayFreely
-    [
-      const Color.fromRGBO(249, 28, 51, 1),
-      const Color.fromRGBO(255, 141, 69, 1),
-      const Color.fromRGBO(249, 28, 51, 1),
-    ],
-    // SendMoney
-    [
-      const Color.fromRGBO(91, 29, 212, 1),
-      const Color.fromRGBO(205, 52, 237, 1),
-      const Color.fromRGBO(91, 29, 212, 1),
-    ],
-    // BankWherever
-    [
-      const Color.fromRGBO(227, 25, 82, 1),
-      const Color.fromRGBO(255, 134, 190, 1),
-      const Color.fromRGBO(227, 25, 82, 1),
-    ],
-    // ScanAndGo
-    [
-      const Color.fromRGBO(91, 29, 212, 1),
-      const Color.fromRGBO(205, 52, 237, 1),
-      const Color.fromRGBO(91, 29, 212, 1),
-    ],
-    // EndPage
-    [
-      const Color.fromRGBO(91, 29, 212, 1),
-      const Color.fromRGBO(205, 52, 237, 1),
-      const Color.fromRGBO(91, 29, 212, 1),
-    ],
+    [const Color.fromARGB(255, 233, 30, 47), const Color.fromARGB(255, 132, 18, 143)],
+    [const Color.fromRGBO(227, 25, 82, 1), const Color.fromRGBO(255, 134, 190, 1), const Color.fromRGBO(227, 25, 82, 1)],
+    [const Color.fromRGBO(249, 28, 51, 1), const Color.fromRGBO(255, 141, 69, 1), const Color.fromRGBO(249, 28, 51, 1)],
+    [const Color.fromRGBO(91, 29, 212, 1), const Color.fromRGBO(205, 52, 237, 1), const Color.fromRGBO(91, 29, 212, 1)],
+    [const Color.fromRGBO(227, 25, 82, 1), const Color.fromRGBO(255, 134, 190, 1), const Color.fromRGBO(227, 25, 82, 1)],
+    [const Color.fromRGBO(91, 29, 212, 1), const Color.fromRGBO(205, 52, 237, 1), const Color.fromRGBO(91, 29, 212, 1)],
+    [const Color.fromRGBO(91, 29, 212, 1), const Color.fromRGBO(205, 52, 237, 1), const Color.fromRGBO(91, 29, 212, 1)],
   ];
 
-  // Lista de vistas que deseas mostrar en el PageView
   final List<Widget> _pages = [
     const IntroPage(),
     const ProductHands(),
@@ -108,7 +70,7 @@ class _LoginPageState extends State {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: _gradients[_currentPage],
+              colors: _gradients[_currentPage], // Gradiente dinámico
             ),
           ),
           child: SafeArea(
@@ -122,11 +84,12 @@ class _LoginPageState extends State {
                     children: _pages,
                   ),
                 ),
-                // BottomNavigation pasándole el controlador y el count dinámico
-                BottomNavigation(
-                  pageController: _pageController,
-                  pageCount: _pages.length,
-                ),
+                // BottomNavigation solo si no estamos en EndPage (última página)
+                if (_currentPage != 6) 
+                  BottomNavigation(
+                    pageController: _pageController,
+                    pageCount: _pages.length,
+                  ),
               ],
             ),
           ),

@@ -12,34 +12,48 @@ class ProductHands extends StatefulWidget {
 class _ProductHandsState extends State<ProductHands> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 45),
-        Hero(
-          tag: 'logo',
-          child: Image.asset(
-            'assets/img/logo.png',
-            width: 40,
-            height: 40,
+    // Obtener el tamaño de la pantalla
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Espacio adaptable superior
+          SizedBox(height: screenHeight * 0.05),
+          
+          Hero(
+            tag: 'logo',
+            child: Image.asset(
+              'assets/img/logo.png',
+              width: screenWidth * 0.1, // Tamaño proporcional al ancho de pantalla
+              height: screenWidth * 0.1, // Tamaño proporcional al ancho de pantalla
+            ),
           ),
-        ),
-        const SizedBox(height: 70),
-        const CustomImage(
-          padding: EdgeInsets.only(left: 30),
-          imagePath: 'assets/img/productHandsx3.png',
-          width: 370,
-          height: 373,
-        ),
-        const SizedBox(height: 70),
-        const DescriptionSection(
-          title: 'Tus productos a la mano',
-          fontSizeTitle: 28,
-          isBoldTitle: true,
-          subtitle:
-              'Adminístralos libremente desde cualquier \n lugar, fácil y rapido.',
-          fontSizeSubtitle: 16,
-        ),
-      ],
+          
+          // Espacio adaptable entre logo y la imagen
+          SizedBox(height: screenHeight * 0.1),
+
+          CustomImage(
+            padding: EdgeInsets.only(left: screenWidth * 0.08), // Espaciado adaptable
+            imagePath: 'assets/img/productHandsx3.png',
+            width: screenWidth * 0.8,  // Ancho adaptable
+            height: screenHeight * 0.4,  // Alto adaptable
+          ),
+          
+          // Espacio entre imagen y descripción
+          SizedBox(height: screenHeight * 0.12),
+
+          DescriptionSection(
+            title: 'Tus productos a la mano',
+            fontSizeTitle: screenWidth * 0.08, // Tamaño de título proporcional al ancho
+            isBoldTitle: true,
+            subtitle:
+                'Adminístralos libremente desde cualquier \n lugar, fácil y rápido.',
+            fontSizeSubtitle: screenWidth * 0.04, // Tamaño del subtítulo proporcional al ancho
+          ),
+        ],
+      ),
     );
   }
 }
