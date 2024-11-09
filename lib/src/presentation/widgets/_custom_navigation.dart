@@ -1,3 +1,4 @@
+import 'package:finandina_prueba/src/presentation/widgets/_animated_page_statict.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -6,7 +7,7 @@ class BottomNavigation extends StatelessWidget {
   final int pageCount;
 
   const BottomNavigation({
-    super.key, 
+    super.key,
     required this.pageController,
     required this.pageCount,
   });
@@ -48,36 +49,37 @@ class BottomNavigation extends StatelessWidget {
               ),
             ),
             IconButton(
-  icon: Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-    decoration: BoxDecoration(
-      color: const Color.fromARGB(255, 255, 255, 255),
-      borderRadius: BorderRadius.circular(30),
-      // Añadir esta propiedad para quitar cualquier sombra
-      boxShadow: const [], 
-    ),
-    child: const Icon(
-      Icons.arrow_forward, 
-      color: Color.fromARGB(255, 233, 30, 47),
-    ),
-  ),
-  splashColor: Colors.transparent,
-  highlightColor: Colors.transparent,
-  padding: EdgeInsets.zero,
-  hoverColor: Colors.transparent,
-  onPressed: () {
-    int nextPage = pageController.page!.toInt() + 1;
-    if (nextPage < pageCount) {
-      pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
-    } else {
-      print("Has llegado al final de la introducción");
-    }
-  },
-),
+              icon: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(30),
+                  // Añadir esta propiedad para quitar cualquier sombra
+                  boxShadow: const [],
+                ),
+                child: const Icon(
+                  Icons.arrow_forward,
+                  color: Color.fromARGB(255, 233, 30, 47),
+                ),
+              ),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              padding: EdgeInsets.zero,
+              hoverColor: Colors.transparent,
+              onPressed: () {
+                int nextPage = pageController.page!.toInt() + 1;
+                if (nextPage < pageCount) {
+                  // Usamos animateToPage con la animación personalizada
+                  pageController.animateToPage(
+                    nextPage,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                } else {
+                  print("Has llegado al final de la introducción");
+                }
+              },
+            ),
           ],
         ),
       ),

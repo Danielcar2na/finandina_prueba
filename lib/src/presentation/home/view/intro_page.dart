@@ -26,73 +26,66 @@ class _IntroPageState extends State<IntroPage> with SingleTickerProviderStateMix
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Cuando el usuario presiona el botón de retroceso, animamos el logo a su tamaño original
-        _controller.reverse();
-        return true;
-      },
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Espacio superior adaptable
-            SizedBox(height: screenHeight * 0.05),
-
-            // Usamos Hero para la animación del logo
-            Hero(
-              tag: 'logo',
-              child: AnimatedBuilder(
-                animation: _controller, // Usa el controlador para la animación
-                builder: (context, child) {
-                  return Image.asset(
-                    'assets/img/logo.png',
-                    width: _animation.value,
-                    height: _animation.value,
-                  );
-                },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Espacio superior adaptable
+          SizedBox(height: screenHeight * 0.05),
+    
+          // Usamos Hero para la animación del logo
+          Hero(
+            tag: 'logo',
+            child: AnimatedBuilder(
+              animation: _controller, // Usa el controlador para la animación
+              builder: (context, child) {
+                return Image.asset(
+                  'assets/img/logo.png',
+                  width: _animation.value,
+                  height: _animation.value,
+                );
+              },
+            ),
+          ),
+    
+          SizedBox(height: screenHeight * 0.01), // Ajuste de espacio
+    
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Con ',
+                style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.06),
               ),
-            ),
-
-            SizedBox(height: screenHeight * 0.01), // Ajuste de espacio
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Con ',
-                  style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.06),
+              Text(
+                "Banco Finandina",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: screenWidth * 0.05,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  "Banco Finandina",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenWidth * 0.05,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-
-            Text(
-              "tienes el poder de ser libre",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: screenWidth * 0.06, // Tamaño adaptado al ancho
               ),
+            ],
+          ),
+    
+          Text(
+            "tienes el poder de ser libre",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: screenWidth * 0.06, // Tamaño adaptado al ancho
             ),
-
-            // Espacio adaptable
-            SizedBox(height: screenHeight * 0.45),
-
-            DescriptionSection(
-              title: 'Descubre lo que puedes hacer con tu',
-              fontSizeTitle: screenWidth * 0.04, // Tamaño del título ajustado
-              subtitle: 'App Banco Finandina',
-              fontSizeSubtitle: screenWidth * 0.08, // Tamaño de subtítulo ajustado
-              isBoldSubtitle: true,
-            ),
-          ],
-        ),
+          ),
+    
+          // Espacio adaptable
+          SizedBox(height: screenHeight * 0.45),
+    
+          DescriptionSection(
+            title: 'Descubre lo que puedes hacer con tu',
+            fontSizeTitle: screenWidth * 0.04, // Tamaño del título ajustado
+            subtitle: 'App Banco Finandina',
+            fontSizeSubtitle: screenWidth * 0.08, // Tamaño de subtítulo ajustado
+            isBoldSubtitle: true,
+          ),
+        ],
       ),
     );
   }
