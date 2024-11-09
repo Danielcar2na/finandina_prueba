@@ -61,36 +61,53 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // Manejar la acción de retroceso
+  Future<bool> _onWillPop() async {
+    if (_currentPage > 0) {
+      // Si no estamos en la primera página, regresamos a la anterior
+      _pageController.previousPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      return false; // Evitar el comportamiento por defecto de retroceso
+    }
+    return true; // Si estamos en la primera página, dejamos que el sistema maneje el retroceso
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: _gradients[_currentPage], // Gradiente dinámico
+    return WillPopScope(
+      onWillPop: _onWillPop,  // Capturamos el gesto de retroceso
+      child: SafeArea(
+        child: Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: _gradients[_currentPage], // Gradiente dinámico
+              ),
             ),
-          ),
-          child: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // PageView para navegar entre las vistas
-                Expanded(
-                  child: PageView(
-                    controller: _pageController,
-                    children: _pages,
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // PageView para navegar entre las vistas, con desplazamiento deshabilitado
+                  Expanded(
+                    child: PageView(
+                      controller: _pageController,
+                      physics: const NeverScrollableScrollPhysics(),  // Deshabilita el desplazamiento lateral
+                      children: _pages,
+                    ),
                   ),
-                ),
-                // BottomNavigation solo si no estamos en EndPage (última página)
-                if (_currentPage != 6) 
-                  BottomNavigation(
-                    pageController: _pageController,
-                    pageCount: _pages.length,
-                  ),
-              ],
+                  // BottomNavigation solo si no estamos en EndPage (última página)
+                  if (_currentPage != 6) 
+                    BottomNavigation(
+                      pageController: _pageController,
+                      pageCount: _pages.length,
+                    ),
+                ],
+              ),
             ),
           ),
         ),

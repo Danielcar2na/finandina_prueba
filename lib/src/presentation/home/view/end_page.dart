@@ -18,24 +18,25 @@ class _EndPageState extends State<EndPage> {
 
     return Scaffold(
       // Contenedor principal con el gradiente aplicado
-      body: SingleChildScrollView(
-        child: Container(
-          width: screenWidth,
-          height: screenHeight,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color.fromRGBO(91, 29, 212, 1),
-                Color.fromRGBO(205, 52, 237, 1),
-                Color.fromRGBO(91, 29, 212, 1),
-              ], // Puedes ajustar los colores del gradiente aquí
-            ),
+      body: Container(
+        width: screenWidth,
+        height: screenHeight,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color.fromRGBO(91, 29, 212, 1),
+              Color.fromRGBO(205, 52, 237, 1),
+              Color.fromRGBO(91, 29, 212, 1),
+            ], // Puedes ajustar los colores del gradiente aquí
           ),
+        ),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Centrar contenido verticalmente
             children: [
+              SizedBox(height: screenHeight * 0.05),
               // Logo ajustado
               Image.asset(
                 'assets/img/logo.png',
@@ -44,7 +45,7 @@ class _EndPageState extends State<EndPage> {
               ),
             
               // Espacio entre el logo y la imagen
-              SizedBox(height: screenHeight * 0.10),
+              SizedBox(height: screenHeight * 0.08),
             
               // Imagen ajustada
               CustomImage(
@@ -55,7 +56,7 @@ class _EndPageState extends State<EndPage> {
               ),
             
               // Espacio entre la imagen y la descripción
-              SizedBox(height: screenHeight * 0.075),
+              SizedBox(height: screenHeight * 0.11),
             
               // Descripción con tamaños de fuente adaptativos
               DescriptionSection(
@@ -68,7 +69,7 @@ class _EndPageState extends State<EndPage> {
             
               // Espacio entre la descripción y el botón flotante
               SizedBox(height: screenHeight * 0.060),  // Espacio entre descripción y el botón
-
+                
               // Botón flotante rectangular
               SizedBox(
                 width: screenWidth * 0.85,  // El mismo ancho que el CustomImage
