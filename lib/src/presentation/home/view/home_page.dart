@@ -61,13 +61,13 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Manejar la acción de retroceso
+  // Método para controlar el gesto de retroceso
   Future<bool> _onWillPop() async {
     if (_currentPage > 0) {
       // Si no estamos en la primera página, regresamos a la anterior
       _pageController.previousPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: 500),  // Duración de la animación
+        curve: Curves.easeOut,  // Usamos la curva easeOut para desacelerar al final
       );
       return false; // Evitar el comportamiento por defecto de retroceso
     }
@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,  // Capturamos el gesto de retroceso
+      onWillPop: _onWillPop, // Controlamos el gesto de retroceso
       child: SafeArea(
         child: Scaffold(
           body: Container(
@@ -92,16 +92,20 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // PageView para navegar entre las vistas, con desplazamiento deshabilitado
+                  // PageView para navegar entre las vistas
                   Expanded(
                     child: PageView(
                       controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),  // Deshabilita el desplazamiento lateral
                       children: _pages,
+                      onPageChanged: (page) {
+                        setState(() {
+                          _currentPage = page;
+                        });
+                      },
                     ),
                   ),
                   // BottomNavigation solo si no estamos en EndPage (última página)
-                  if (_currentPage != 6) 
+                  if (_currentPage != 6)
                     BottomNavigation(
                       pageController: _pageController,
                       pageCount: _pages.length,

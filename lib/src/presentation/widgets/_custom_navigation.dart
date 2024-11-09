@@ -6,29 +6,28 @@ class BottomNavigation extends StatelessWidget {
   final int pageCount;
 
   const BottomNavigation({
-    Key? key,
+    super.key, 
     required this.pageController,
     required this.pageCount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final padding = screenWidth * 0.04;
-    
     return Padding(
-      padding: EdgeInsets.all(padding),
+      padding: const EdgeInsets.all(16.0),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: padding * 0.5, vertical: padding * 0.4),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(30),
+          color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2), // Color semitransparente
+          borderRadius: BorderRadius.circular(30), // Bordes redondeados
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () => pageController.jumpToPage(pageCount - 1),
+              onPressed: () {
+                pageController.jumpToPage(pageCount - 1);
+              },
               child: const Text(
                 "Saltar",
                 style: TextStyle(
@@ -49,33 +48,36 @@ class BottomNavigation extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: Container(
-                padding: EdgeInsets.all(padding * 0.6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const Icon(
-                  Icons.arrow_forward,
-                  color: Color.fromARGB(255, 233, 30, 47),
-                ),
-              ),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                final nextPage = pageController.page!.toInt() + 1;
-                if (nextPage < pageCount) {
-                  pageController.animateToPage(
-                    nextPage,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  );
-                } else {
-                  print("Has llegado al final de la introducción");
-                }
-              },
-            ),
+  icon: Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+    decoration: BoxDecoration(
+      color: const Color.fromARGB(255, 255, 255, 255),
+      borderRadius: BorderRadius.circular(30),
+      // Añadir esta propiedad para quitar cualquier sombra
+      boxShadow: const [], 
+    ),
+    child: const Icon(
+      Icons.arrow_forward, 
+      color: Color.fromARGB(255, 233, 30, 47),
+    ),
+  ),
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
+  padding: EdgeInsets.zero,
+  hoverColor: Colors.transparent,
+  onPressed: () {
+    int nextPage = pageController.page!.toInt() + 1;
+    if (nextPage < pageCount) {
+      pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    } else {
+      print("Has llegado al final de la introducción");
+    }
+  },
+),
           ],
         ),
       ),

@@ -12,17 +12,7 @@ class _IntroPageState extends State<IntroPage> with SingleTickerProviderStateMix
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-    _animation = Tween<double>(begin: 90, end: 40).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
+ 
 
   @override
   void dispose() {
@@ -36,66 +26,89 @@ class _IntroPageState extends State<IntroPage> with SingleTickerProviderStateMix
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          // Espacio superior adaptable
-          SizedBox(height: screenHeight * 0.05),
-          
-          Hero(
-            tag: 'logo',
-            child: AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) {
-                return Image.asset(
-                  'assets/img/logo.png',
-                  width: _animation.value,
-                  height: _animation.value,
-                );
-              },
-            ),
-          ),
+    return WillPopScope(
+      onWillPop: () async {
+        // Cuando el usuario presiona el botón de retroceso, animamos el logo a su tamaño original
+        _controller.reverse();
+        return true;
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Espacio superior adaptable
+            SizedBox(height: screenHeight * 0.05),
 
-          SizedBox(height: screenHeight * 0.01), // Ajuste de espacio
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Con ',
-                style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.06),
+            // Usamos Hero para la animación del logo
+            Hero(
+              tag: 'logo',
+              child: AnimatedBuilder(
+                animation: _controller, // Usa el controlador para la animación
+                builder: (context, child) {
+                  return Image.asset(
+                    'assets/img/logo.png',
+                    width: _animation.value,
+                    height: _animation.value,
+                  );
+                },
               ),
-              Text(
-                "Banco Finandina",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: screenWidth * 0.05,
-                  fontWeight: FontWeight.bold,
+            ),
+
+            SizedBox(height: screenHeight * 0.01), // Ajuste de espacio
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Con ',
+                  style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.06),
                 ),
-              ),
-            ],
-          ),
-
-          Text(
-            "tienes el poder de ser libre",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: screenWidth * 0.06, // Tamaño adaptado al ancho
+                Text(
+                  "Banco Finandina",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: screenWidth * 0.05,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-          ),
-          
-          // Espacio adaptable
-          SizedBox(height: screenHeight * 0.45),
 
-          DescriptionSection(
-            title: 'Descubre lo que puedes hacer con tu',
-            fontSizeTitle: screenWidth * 0.04, // Tamaño del título ajustado
-            subtitle: 'App Banco Finandina',
-            fontSizeSubtitle: screenWidth * 0.08, // Tamaño de subtítulo ajustado
-            isBoldSubtitle: true,
-          ),
-        ],
+            Text(
+              "tienes el poder de ser libre",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: screenWidth * 0.06, // Tamaño adaptado al ancho
+              ),
+            ),
+
+            // Espacio adaptable
+            SizedBox(height: screenHeight * 0.45),
+
+            DescriptionSection(
+              title: 'Descubre lo que puedes hacer con tu',
+              fontSizeTitle: screenWidth * 0.04, // Tamaño del título ajustado
+              subtitle: 'App Banco Finandina',
+              fontSizeSubtitle: screenWidth * 0.08, // Tamaño de subtítulo ajustado
+              isBoldSubtitle: true,
+            ),
+          ],
+        ),
       ),
     );
+  }
+   @override
+  void initState() {
+    super.initState();
+    // Inicializamos el controlador de animación
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 700),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 40, end: 90).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    // Reiniciar la animación al llegar a la página
+    _controller.forward();
   }
 }
