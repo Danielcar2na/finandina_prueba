@@ -93,6 +93,7 @@ class _EndPageState extends State<EndPage> with SingleTickerProviderStateMixin {
                   height: screenHeight * 0.06,
                   child: ElevatedButton(
                     onPressed: () {
+                      // ignore: avoid_print
                       print('Libera tu Banca');
                     },
                     style: ElevatedButton.styleFrom(
@@ -115,6 +116,7 @@ class _EndPageState extends State<EndPage> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
+      // ignore: prefer_const_constructors
       bottomNavigationBar: SizedBox.shrink(),
     );
   }

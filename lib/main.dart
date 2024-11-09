@@ -1,5 +1,4 @@
 import 'package:finandina_prueba/src/presentation/home/view/home_page.dart';
-import 'package:finandina_prueba/src/presentation/home/view/intro_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());

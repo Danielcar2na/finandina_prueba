@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 
 class CustomImage extends StatelessWidget {
-  final String imagePath; // Ruta de la imagen
-  final double width; // Ancho de la imagen
-  final double height; // Alto de la imagen
-  final BoxFit fit; // Propiedad para ajustar el tamaño de la imagen
-  final  EdgeInsetsGeometry padding ;
+  final String imagePath;
 
-  // Constructor que acepta estos parámetros
+  final double width;
+  final double height;
+  final BoxFit fit;
+  final EdgeInsetsGeometry padding;
+
   const CustomImage({
     super.key,
     required this.imagePath,
     required this.width,
     required this.height,
-    this.fit = BoxFit.contain, 
+    this.fit = BoxFit.contain,
     this.padding = const EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0),
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: padding, // Aplica el relleno alrededor de la imagen
       child: Image.asset(
-        imagePath,
-        width: width,
-        height: height,
-        fit: fit,
-         // Ajusta la imagen dentro de los límites definidos
+        imagePath, // Ruta de la imagen en los assets
+        width: width, // Define el ancho de la imagen
+        height: height, // Define la altura de la imagen
+        fit: fit, // Ajuste de la imagen dentro del contenedor
       ),
     );
   }
